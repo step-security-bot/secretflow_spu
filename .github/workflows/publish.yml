@@ -21,8 +21,13 @@ jobs:
   trigger-circleci:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
+        with:
+          egress-policy: audit
+
       - name: secretflow-spu-deploy
         id: secretflow-spu-deploy
-        uses: CircleCI-Public/trigger-circleci-pipeline-action@v1.2.0
+        uses: CircleCI-Public/trigger-circleci-pipeline-action@a81cd720792a6088debd7f182b552845abb86f1b # v1.2.0
         env:
           CCI_TOKEN: ${{ secrets.CCI_TOKEN }}
